@@ -1,0 +1,11 @@
+{
+  "$schema": "https://json.schemastore.org/prettierrc",
+  "semi": false,
+  "html.format.wrapAttributes": "force-aligned",
+  "tabWidth": 2,
+  "singleQuote": true,
+  "printWidth": 120,
+  "trailingComma": "none",
+  "editor.formatOnSave": true,
+  "proseWrap": "always"
+}
