@@ -1,5 +1,8 @@
 {
   "hello": "Merhaba",
   "switchToLightMode": "Işık moduna geç",
-  "switchToDarkMode": "Karanlık moda geç"
+  "switchToDarkMode": "Karanlık moda geç",
+  "turkish": "Türkçe",
+  "english": "English",
+  "content": "İçerik"
 }

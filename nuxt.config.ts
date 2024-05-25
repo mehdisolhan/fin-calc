@@ -2,5 +2,5 @@
 export default defineNuxtConfig({
   devtools: { enabled: false },
   plugins: ['~/plugins/i18n/index.js'],
-  modules: ['@nuxt/ui']
+  modules: ['@nuxt/ui', '@pinia/nuxt']
 })
