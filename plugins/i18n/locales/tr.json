@@ -4,5 +4,8 @@
   "switchToDarkMode": "Karanlık moda geç",
   "turkish": "Türkçe",
   "english": "English",
-  "content": "İçerik"
+  "averagePriceCalculate": "Hisse Maliyeti Hesapla",
+  "price": "Fiyat",
+  "lotQuantity": "Lot Miktarı",
+  "total": "Toplam"
 }

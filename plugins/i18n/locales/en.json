@@ -4,5 +4,8 @@
   "switchToDarkMode": "Switch to dark mode",
   "turkish": "Türkçe",
   "english": "English",
-  "content": "Content"
+  "averagePriceCalculate": "Calculate Average Price",
+  "price": "Price",
+  "lotQuantity": "Lot Quantity",
+  "total": "Total"
 }
