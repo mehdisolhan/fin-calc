@@ -1,10 +1,4 @@
-<template>
-  <UTable :rows="rows" :columns="columns">
-    <template #price-data="{ row }">
-      <UInput v-model="row.price" class="border-1" />
-    </template>
-  </UTable>
-</template>
+<template>content</template>
 <script setup>
 import { useI18n } from 'vue-i18n'
 const { t } = useI18n()

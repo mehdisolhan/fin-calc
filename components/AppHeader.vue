@@ -5,7 +5,7 @@
         <h1>My App</h1>
       </div>
       <div class="flex">
-        <ChangeLang />
+        <!-- <ChangeLang /> -->
         <DarkModeSwitch />
       </div>
     </div>
