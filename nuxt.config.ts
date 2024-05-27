@@ -2,5 +2,6 @@
 export default defineNuxtConfig({
   devtools: { enabled: false },
   plugins: ['~/plugins/i18n/index.js'],
-  modules: ['@pinia/nuxt', "@nuxtjs/tailwindcss"]
+  modules: ['@pinia/nuxt', '@nuxtjs/tailwindcss'],
+  css: ['@/assets/css/tailwind.css']
 })
