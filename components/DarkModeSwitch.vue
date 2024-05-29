@@ -1,16 +1,11 @@
 <template>
-  <button @click="handleDarkMode" class="p-2 rounded-full bg-background/50 text-primary/50">Toggle Dark Mode</button>
+  <div class="cursor-pointer hover:text-orange-600" @click="handleDarkMode">
+    <Icon v-if="colorMode === 'light'" name="heroicons:moon" />
+    <Icon v-else name="heroicons:sun" />
+  </div>
 </template>
 <script setup>
 const colorMode = ref('light')
-// const isDark = computed({
-//   get() {
-//     return colorMode.value === 'dark'
-//   },
-//   set() {
-//     // colorMode.preference = colorMode.value === 'dark' ? 'light' : 'dark'
-//   }
-// })
 const handleDarkMode = () => {
   colorMode.value = colorMode.value === 'dark' ? 'light' : 'dark'
   if (colorMode.value === 'dark') {

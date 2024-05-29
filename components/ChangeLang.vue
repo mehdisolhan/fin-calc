@@ -1,4 +1,8 @@
-<template>lang</template>
+<template>
+  <div class="mr-2 cursor-pointer hover:text-orange-600">
+    <Icon name="heroicons:language" />
+  </div>
+</template>
 <script setup>
 import { useGlobalStore } from '@/stores/global'
 import { useI18n } from 'vue-i18n'
