@@ -12,7 +12,12 @@
         <tr v-for="row in rows" :key="row.id" class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
           <td class="px-6 py-4">{{ row.id }}</td>
           <td class="px-6 py-4">
-            <input v-model="row.price" type="number" class="w-full p-2 border border-gray-300 rounded-md text-black" />
+            <input
+              v-model="row.price"
+              type="number"
+              min="0"
+              class="w-full p-2 border border-gray-300 rounded-md text-black"
+            />
           </td>
           <td class="px-6 py-4">
             <span>x</span>
@@ -21,7 +26,7 @@
             <input
               v-model="row.quantity"
               type="number"
-              :min="0"
+              min="0"
               class="w-full p-2 border border-gray-300 rounded-md text-black"
             />
           </td>
@@ -29,7 +34,7 @@
             <span>=</span>
           </td>
           <td class="px-6 py-4 font-bold text-black text-center text-base dark:text-white">
-            <span>{{ calculateTotal(row.price, row.quantity) }}</span>
+            <span>{{ calculateRowTotal(row.price, row.quantity) }}</span>
             <span></span>
           </td>
         </tr>
@@ -115,12 +120,22 @@ const rows = reactive([
   }
 ])
 
-const totalLot = computed(() => rows.reduce((acc, row) => acc + row.quantity, 0))
+const totalLot = computed(() =>
+  rows.reduce((acc, row) => {
+    const quantity = parseInt(row.quantity)
+    return quantity > 0 ? acc + quantity : acc
+  }, 0)
+)
 const totalPrices = computed(() => rows.reduce((acc, row) => acc + row.price, 0))
-const avgPrice = computed(() => total.value / totalLot.value)
+const avgPrice = computed(() => {
+  const total = totalPrices.value
+  const lot = totalLot.value
+  return total > 0 && lot > 0 ? `${(total / lot).toFixed(2)} ₺` : 0
+})
 const total = computed(() => totalPrices.value * totalLot.value)
 
-const calculateTotal = (price, quantity) => {
+const calculateRowTotal = (price, quantity) => {
+  if (!price || !quantity) return 0
   const total = price * quantity
   return total > 0 ? `${total} ₺` : total
 }
