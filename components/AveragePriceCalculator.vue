@@ -1,6 +1,6 @@
 <template>
   <div class="relative overflow-x-auto m-2">
-    <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
+    <table class="table-fixed w-full text-sm text-left text-gray-500 dark:text-gray-400">
       <thead class="text-xs text-gray-700 bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
         <tr>
           <th v-for="column in columns" :key="column.key" class="px-6 py-3">
@@ -16,7 +16,9 @@
               v-model="row.price"
               type="number"
               min="0"
+              :placeholder="$t('price')"
               class="w-full p-2 border border-gray-300 rounded-md text-black"
+              @input="() => calculateRowTotal(row)"
             />
           </td>
           <td class="px-6 py-4">
@@ -27,15 +29,16 @@
               v-model="row.quantity"
               type="number"
               min="0"
+              :placeholder="$t('lotQuantity')"
               class="w-full p-2 border border-gray-300 rounded-md text-black"
+              @input="() => calculateRowTotal(row)"
             />
           </td>
           <td class="px-6 py-4">
             <span>=</span>
           </td>
           <td class="px-6 py-4 font-bold text-black text-center text-base dark:text-white">
-            <span>{{ calculateRowTotal(row.price, row.quantity) }}</span>
-            <span></span>
+            <span>{{ row.total }}</span>
           </td>
         </tr>
       </tbody>
@@ -48,7 +51,7 @@
           <td class="px-6 py-4">x</td>
           <td class="px-6 py-4">{{ totalLot }}</td>
           <td class="px-6 py-4">=</td>
-          <td class="px-6 py-4 text-center">{{ total }}</td>
+          <td class="px-6 py-4 text-center">{{ totalPrices }}</td>
         </tr>
       </tfoot>
     </table>
@@ -126,17 +129,21 @@ const totalLot = computed(() =>
     return quantity > 0 ? acc + quantity : acc
   }, 0)
 )
-const totalPrices = computed(() => rows.reduce((acc, row) => acc + row.price, 0))
+const totalPrices = computed(() =>
+  rows.reduce((acc, row) => {
+    return row.total > 0 ? acc + row.total : acc
+  }, 0)
+)
 const avgPrice = computed(() => {
-  const total = totalPrices.value
-  const lot = totalLot.value
-  return total > 0 && lot > 0 ? `${(total / lot).toFixed(2)} ₺` : 0
+  return totalPrices.value > 0 && totalLot.value > 0 ? `${(totalPrices.value / totalLot.value).toFixed(2)} ₺` : 0
 })
-const total = computed(() => totalPrices.value * totalLot.value)
 
-const calculateRowTotal = (price, quantity) => {
+const calculateRowTotal = (row) => {
+  const { price, quantity } = row
   if (!price || !quantity) return 0
-  const total = price * quantity
-  return total > 0 ? `${total} ₺` : total
+  const rowTotal = price * quantity
+  if (rowTotal > 0) {
+    row.total = rowTotal
+  }
 }
 </script>
