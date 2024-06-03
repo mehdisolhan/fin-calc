@@ -38,7 +38,7 @@
             <span>=</span>
           </td>
           <td class="px-6 py-4 font-bold text-black text-center text-base dark:text-white">
-            <span>{{ row.total }}</span>
+            <span>{{ `${row.total} ${row.total > 0 ? store.currencyIcon : ''}` }}</span>
           </td>
         </tr>
       </tbody>
@@ -47,11 +47,11 @@
           class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 text-xl font-bold text-green-600 dark:text-green-500"
         >
           <td class="px-6 py-4" />
-          <td class="px-6 py-4">{{ avgPrice }}</td>
+          <td class="px-6 py-4">{{ `${avgPrice} ${avgPrice > 0 ? store.currencyIcon : ''}` }}</td>
           <td class="px-6 py-4">x</td>
           <td class="px-6 py-4">{{ totalLot }}</td>
           <td class="px-6 py-4">=</td>
-          <td class="px-6 py-4 text-center">{{ totalPrices }}</td>
+          <td class="px-6 py-4 text-center">{{ `${totalPrices} ${totalPrices > 0 ? store.currencyIcon : ''}` }}</td>
         </tr>
       </tfoot>
     </table>
@@ -59,16 +59,19 @@
 </template>
 <script setup>
 import { useI18n } from 'vue-i18n'
+import { useGlobalStore } from '@/stores/global'
+
+const store = useGlobalStore()
 const { t } = useI18n()
 
-const columns = [
+const columns = ref([
   {
     key: 'id',
     label: '#'
   },
   {
     key: 'price',
-    label: `${t('price')}`
+    label: t('price')
   },
   {
     key: 'cross',
@@ -86,7 +89,7 @@ const columns = [
     key: 'total',
     label: t('total')
   }
-]
+])
 
 const rows = reactive([
   {
@@ -135,7 +138,7 @@ const totalPrices = computed(() =>
   }, 0)
 )
 const avgPrice = computed(() => {
-  return totalPrices.value > 0 && totalLot.value > 0 ? `${(totalPrices.value / totalLot.value).toFixed(2)} ₺` : 0
+  return totalPrices.value > 0 && totalLot.value > 0 ? (totalPrices.value / totalLot.value).toFixed(2) : 0
 })
 
 const calculateRowTotal = (row) => {

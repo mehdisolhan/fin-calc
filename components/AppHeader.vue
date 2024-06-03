@@ -4,7 +4,8 @@
       <div class="flex items-center space-x-4">
         <h1>Fin-Calc</h1>
       </div>
-      <div class="flex">
+      <div class="flex gap-x-3 justify-center items-center">
+        <Currency />
         <ChangeLang />
         <DarkModeSwitch />
       </div>

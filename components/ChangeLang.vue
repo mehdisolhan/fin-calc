@@ -1,5 +1,5 @@
 <template>
-  <div class="mr-2 cursor-pointer hover:text-orange-600">
+  <div class="cursor-pointer hover:text-orange-600">
     <Icon name="heroicons:language" />
   </div>
 </template>
