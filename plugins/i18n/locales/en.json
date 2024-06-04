@@ -7,5 +7,7 @@
   "averagePriceCalculate": "Calculate Average Price",
   "price": "Price",
   "lotQuantity": "Lot Quantity",
-  "total": "Total"
+  "total": "Total",
+  "averagePrice": "Average Price",
+  "totalLot": "Total Lot"
 }

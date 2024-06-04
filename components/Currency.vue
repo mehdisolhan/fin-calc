@@ -1,6 +1,11 @@
 <template>
   <div>
-    <select v-model="currentCurrency" name="currency" class="cursor-pointer" @change="onSelectChange">
+    <select
+      v-model="currentCurrency"
+      name="currency"
+      class="cursor-pointer bg-gray-50 dark:bg-gray-800 text-black dark:text-white rounded-lg"
+      @change="onSelectChange"
+    >
       <option v-for="currency in currencyList" :key="currency.value" :value="currency">
         {{ `${currency.icon} ${currency.label}` }}
       </option>

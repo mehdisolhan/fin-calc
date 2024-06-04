@@ -42,19 +42,25 @@
           </td>
         </tr>
       </tbody>
-      <tfoot>
-        <tr
-          class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 text-xl font-bold text-green-600 dark:text-green-500"
-        >
-          <td class="px-6 py-4" />
-          <td class="px-6 py-4">{{ `${avgPrice} ${avgPrice > 0 ? store.currencyIcon : ''}` }}</td>
-          <td class="px-6 py-4">x</td>
-          <td class="px-6 py-4">{{ totalLot }}</td>
-          <td class="px-6 py-4">=</td>
-          <td class="px-6 py-4 text-center">{{ `${totalPrices} ${totalPrices > 0 ? store.currencyIcon : ''}` }}</td>
-        </tr>
-      </tfoot>
     </table>
+    <div class="grid grid-cols-3 place-items-center bg-white border-b dark:bg-gray-800 dark:border-gray-700 font-bold">
+      <div class="px-6 py-4">
+        <div class="text-base">{{ t('averagePrice') }}</div>
+        <div class="text-center text-green-600 dark:text-green-500">
+          {{ `${avgPrice} ${avgPrice > 0 ? store.currencyIcon : ''}` }}
+        </div>
+      </div>
+      <div class="px-6 py-4">
+        <div class="text-base">{{ t('totalLot') }}</div>
+        <div class="text-center text-green-600 dark:text-green-500">{{ totalLot }}</div>
+      </div>
+      <div class="px-6 py-4">
+        <div class="text-base">{{ t('total') }}</div>
+        <div class="text-center text-green-600 dark:text-green-500">
+          {{ `${totalPrices} ${totalPrices > 0 ? store.currencyIcon : ''}` }}
+        </div>
+      </div>
+    </div>
   </div>
 </template>
 <script setup>
@@ -143,7 +149,10 @@ const avgPrice = computed(() => {
 
 const calculateRowTotal = (row) => {
   const { price, quantity } = row
-  if (!price || !quantity) return 0
+  if (!price || !quantity) {
+    row.total = 0
+    return
+  }
   const rowTotal = price * quantity
   if (rowTotal > 0) {
     row.total = rowTotal

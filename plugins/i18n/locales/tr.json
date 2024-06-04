@@ -7,5 +7,7 @@
   "averagePriceCalculate": "Hisse Maliyeti Hesapla",
   "price": "Fiyat",
   "lotQuantity": "Lot Miktarı",
-  "total": "Toplam"
+  "total": "Toplam",
+  "averagePrice": "Ortalama Maliyet",
+  "totalLot": "Toplam Lot"
 }
