@@ -65,7 +65,6 @@ Contributions are welcome! Please follow these steps:
 5. Push to the branch (`git push origin feature/your-feature`).
 6. Open a pull request.
 
-
 ### Color Palette Reference
 
 https://tailwindcss.com/docs/customizing-colors#color-palette-reference
