@@ -10,7 +10,7 @@
       </div>
       <div class="flex gap-x-3 justify-center items-center">
         <Currency />
-        <!-- <ChangeLang /> -->
+        <ChangeLang />
         <DarkModeSwitch />
       </div>
     </div>
