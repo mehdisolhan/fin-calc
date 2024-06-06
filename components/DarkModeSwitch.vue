@@ -1,5 +1,5 @@
 <template>
-  <div class="cursor-pointer hover:text-orange-600" @click="handleDarkMode">
+  <div class="cursor-pointer" @click="handleDarkMode">
     <Icon v-if="colorMode === 'light'" name="heroicons:moon" />
     <Icon v-else name="heroicons:sun" />
   </div>

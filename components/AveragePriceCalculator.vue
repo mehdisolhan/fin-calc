@@ -21,7 +21,7 @@
               @input="() => calculateRowTotal(row)"
             />
           </td>
-          <td class="px-6 py-4">
+          <td class="px-6 py-4 text-center">
             <span>x</span>
           </td>
           <td class="px-6 py-4">
@@ -34,15 +34,35 @@
               @input="() => calculateRowTotal(row)"
             />
           </td>
-          <td class="px-6 py-4">
+          <td class="px-6 py-4 text-center">
             <span>=</span>
           </td>
           <td class="px-6 py-4 font-bold text-black text-center text-base dark:text-white">
             <span>{{ `${row.total} ${row.total > 0 ? store.currencyIcon : ''}` }}</span>
           </td>
+          <td v-if="row.id > 4" class="px-6 py-4 font-bold text-black text-center text-base dark:text-white">
+            <button
+              type="button"
+              class="flex items-center m-2 focus:outline-none text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:ring-red-300 font-medium rounded-lg text-sm px-3 py-2 me-2 mb-2 dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-900"
+              @click="() => rows.splice(rows.indexOf(row), 1)"
+            >
+              <Icon name="heroicons:x-circle-16-solid" />
+              <span class="ml-2">{{ $t('delete') }}</span>
+            </button>
+          </td>
         </tr>
       </tbody>
     </table>
+    <div class="flex justify-between bg-white border-b dark:bg-gray-800 dark:border-gray-700">
+      <button
+        type="button"
+        class="flex items-center m-2 text-white text-sm p-3 me-2 mb-2 bg-gray-800 dark:bg-gray-600 dark:hover:bg-gray-700 hover:bg-gray-600 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg focus:outline-none dark:focus:ring-blue-800"
+        @click="addNewRow"
+      >
+        <Icon name="heroicons:plus-circle-16-solid" />
+        <span class="ml-2">{{ $t('addNew') }}</span>
+      </button>
+    </div>
     <div class="grid grid-cols-3 place-items-center bg-white border-b dark:bg-gray-800 dark:border-gray-700 font-bold">
       <div class="px-6 py-4">
         <div class="text-base">{{ t('averagePrice') }}</div>
@@ -157,5 +177,17 @@ const calculateRowTotal = (row) => {
   if (rowTotal > 0) {
     row.total = rowTotal
   }
+}
+
+const addNewRow = () => {
+  const lastRow = rows[rows.length - 1]
+  rows.push({
+    id: lastRow.id + 1,
+    price: 0,
+    cross: '',
+    quantity: 0,
+    equal: '',
+    total: 0
+  })
 }
 </script>

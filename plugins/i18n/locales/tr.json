@@ -9,5 +9,7 @@
   "lotQuantity": "Lot Miktarı",
   "total": "Toplam",
   "averagePrice": "Ortalama Maliyet",
-  "totalLot": "Toplam Lot"
+  "totalLot": "Toplam Lot",
+  "addNew": "Yeni Ekle",
+  "delete": "Sil"
 }

@@ -9,5 +9,7 @@
   "lotQuantity": "Lot Quantity",
   "total": "Total",
   "averagePrice": "Average Price",
-  "totalLot": "Total Lot"
+  "totalLot": "Total Lot",
+  "addNew": "Add New",
+  "delete": "Delete"
 }
