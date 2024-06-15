@@ -1,6 +1,6 @@
 # Fin-Calc
 
-fin-calc is a average price calculator web application developed using Nuxt.js, Vue 3, JavaScript, and TailwindCSS. This application was created to provide a cleaner and ad-free experience for calculating average prices, which I often use.
+fin-calc is an average price calculator web application developed using Nuxt.js, Vue 3, JavaScript, and TailwindCSS. This application was created to provide a cleaner and ad-free experience for calculating average prices, which I often use.
 
 ## Features
 
