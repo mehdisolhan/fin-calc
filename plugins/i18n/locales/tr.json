@@ -11,5 +11,6 @@
   "averagePrice": "Ortalama Maliyet",
   "totalLot": "Toplam Lot",
   "addNew": "Yeni Ekle",
-  "delete": "Sil"
+  "delete": "Sil",
+  "clearAll": "Hepsini Temizle"
 }

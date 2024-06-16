@@ -62,6 +62,14 @@
         <Icon name="heroicons:plus-circle-16-solid" />
         <span class="ml-2">{{ $t('addNew') }}</span>
       </button>
+      <button
+        type="button"
+        class="flex items-center m-2 text-white text-sm p-3 me-2 mb-2 bg-gray-800 dark:bg-gray-600 dark:hover:bg-gray-700 hover:bg-gray-600 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg focus:outline-none dark:focus:ring-blue-800"
+        @click="clearAll"
+      >
+        <Icon name="heroicons:trash-16-solid" />
+        <span class="ml-2">{{ $t('clearAll') }}</span>
+      </button>
     </div>
     <div class="grid grid-cols-3 place-items-center bg-white border-b dark:bg-gray-800 dark:border-gray-700 font-bold">
       <div class="px-6 py-4">
@@ -90,7 +98,7 @@ import { useGlobalStore } from '@/stores/global'
 const store = useGlobalStore()
 const { t } = useI18n()
 
-const columns = ref([
+const columns = computed(() => [
   {
     key: 'id',
     label: '#'
@@ -188,6 +196,14 @@ const addNewRow = () => {
     quantity: 0,
     equal: '',
     total: 0
+  })
+}
+
+const clearAll = () => {
+  rows.forEach((row) => {
+    row.price = 0
+    row.quantity = 0
+    row.total = 0
   })
 }
 </script>

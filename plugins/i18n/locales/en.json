@@ -11,5 +11,6 @@
   "averagePrice": "Average Price",
   "totalLot": "Total Lot",
   "addNew": "Add New",
-  "delete": "Delete"
+  "delete": "Delete",
+  "clearAll": "Clear All"
 }

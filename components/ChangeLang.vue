@@ -11,11 +11,11 @@
   </select>
 </template>
 <script setup>
-import { useGlobalStore } from '@/stores/global'
 import { useI18n } from 'vue-i18n'
 
 const { t } = useI18n()
 const store = useGlobalStore()
+const { setItem, getItem } = useLocalStorage()
 const lang = ref(store.lang || 'tr')
 
 const defaultLanguages = [
@@ -31,5 +31,21 @@ const defaultLanguages = [
 
 const onChangeLanguage = () => {
   store.setLanguage(lang.value)
+  setItem('lang', lang.value)
 }
+
+onMounted(() => {
+  if (process.client) {
+    const storedLang = getItem('lang')
+    if (storedLang) {
+      lang.value = storedLang
+      store.setLanguage(lang.value)
+    } else {
+      if (navigator.language?.includes('tr')) {
+        lang.value = 'tr'
+        store.setLanguage(lang.value)
+      }
+    }
+  }
+})
 </script>
