@@ -3,7 +3,7 @@
     <div class="flex justify-between">
       <div class="flex items-center space-x-4">
         <h1
-          class="text-2xl font-bold subpixel-antialiased tracking-widest text-gray-950 hover:text-gray-600 dark:text-gray-300"
+          class="text-2xl font-bold subpixel-antialiased cursor-pointer tracking-widest text-gray-950 hover:text-gray-600 dark:text-gray-300"
         >
           Fin-Calc
         </h1>

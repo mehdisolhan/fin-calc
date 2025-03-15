@@ -9,36 +9,28 @@
         </tr>
       </thead>
       <tbody>
-        <tr v-for="row in rows" :key="row.id" class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
+        <tr v-for="(row, i) in rows" :key="row.id" class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
           <td class="px-6 py-4">{{ row.id }}</td>
           <td class="px-6 py-4">
-            <input
-              v-model="row.price"
-              type="number"
-              min="0"
-              :placeholder="$t('price')"
-              class="w-full p-2 border border-gray-300 rounded-md text-black"
-              @input="() => calculateRowTotal(row)"
-            />
+            <CurrencyInput v-model="rows[i]" @calculate-row-total="calculateRowTotal" />
           </td>
           <td class="px-6 py-4 text-center">
             <span>x</span>
           </td>
           <td class="px-6 py-4">
             <input
-              v-model="row.quantity"
-              type="number"
-              min="0"
-              :placeholder="$t('lotQuantity')"
+              :value="row.quantity"
+              type="text"
               class="w-full p-2 border border-gray-300 rounded-md text-black"
-              @input="() => calculateRowTotal(row)"
+              placeholder="0"
+              @input="(e) => handleQuantityInput(e, row)"
             />
           </td>
           <td class="px-6 py-4 text-center">
             <span>=</span>
           </td>
           <td class="px-6 py-4 font-bold text-black text-center text-base dark:text-white">
-            <span>{{ `${row.total} ${row.total > 0 ? store.currencyIcon : ''}` }}</span>
+            <span>{{ $n(row.total, 'currency', store.currency.value) }}</span>
           </td>
           <td v-if="row.id > 4" class="px-6 py-4 font-bold text-black text-center text-base dark:text-white">
             <button
@@ -75,7 +67,7 @@
       <div class="px-6 py-4">
         <div class="text-base">{{ t('averagePrice') }}</div>
         <div class="text-center text-green-600 dark:text-green-500">
-          {{ `${avgPrice} ${avgPrice > 0 ? store.currencyIcon : ''}` }}
+          {{ $n(avgPrice, 'currency', store.currency.value) }}
         </div>
       </div>
       <div class="px-6 py-4">
@@ -85,7 +77,7 @@
       <div class="px-6 py-4">
         <div class="text-base">{{ t('total') }}</div>
         <div class="text-center text-green-600 dark:text-green-500">
-          {{ `${totalPrices} ${totalPrices > 0 ? store.currencyIcon : ''}` }}
+          {{ $n(totalPrices, 'currency', store.currency.value) }}
         </div>
       </div>
     </div>
@@ -94,6 +86,7 @@
 <script setup>
 import { useI18n } from 'vue-i18n'
 import { useGlobalStore } from '@/stores/global'
+import Decimal from 'decimal.js'
 
 const store = useGlobalStore()
 const { t } = useI18n()
@@ -128,37 +121,61 @@ const columns = computed(() => [
 const rows = reactive([
   {
     id: 1,
-    price: 0,
+    price: '',
+    displayedPrice: '',
     cross: '',
-    quantity: 0,
+    quantity: '',
     equal: '',
     total: 0
   },
   {
     id: 2,
-    price: 0,
+    price: '',
+    displayedPrice: '',
     cross: '',
-    quantity: 0,
+    quantity: '',
     equal: '',
     total: 0
   },
   {
     id: 3,
-    price: 0,
+    price: '',
+    displayedPrice: '',
     cross: '',
-    quantity: 0,
+    quantity: '',
     equal: '',
     total: 0
   },
   {
     id: 4,
-    price: 0,
+    price: '',
+    displayedPrice: '',
     cross: '',
-    quantity: 0,
+    quantity: '',
     equal: '',
     total: 0
   }
 ])
+
+const handleQuantityInput = (e, row) => {
+  const currentValue = row.quantity
+  let rawValue = e.target.value
+
+  rawValue = rawValue.replace(/,/g, '.')
+
+  const dotCount = (rawValue.match(/\./g) || []).length
+
+  if (dotCount > 1) {
+    e.target.value = currentValue
+    return
+  }
+
+  rawValue = rawValue.replace(/[^0-9.]/g, '')
+
+  row.quantity = rawValue
+  e.target.value = rawValue
+  calculateRowTotal(row)
+}
 
 const totalLot = computed(() =>
   rows.reduce((acc, row) => {
@@ -166,13 +183,18 @@ const totalLot = computed(() =>
     return quantity > 0 ? acc + quantity : acc
   }, 0)
 )
+
 const totalPrices = computed(() =>
   rows.reduce((acc, row) => {
-    return row.total > 0 ? acc + row.total : acc
+    return row.total > 0 ? new Decimal(acc).plus(row.total).toNumber() : acc
   }, 0)
 )
+
 const avgPrice = computed(() => {
-  return totalPrices.value > 0 && totalLot.value > 0 ? (totalPrices.value / totalLot.value).toFixed(2) : 0
+  if (totalPrices.value > 0 && totalLot.value > 0) {
+    return new Decimal(totalPrices.value).dividedBy(totalLot.value).toNumber()
+  }
+  return 0
 })
 
 const calculateRowTotal = (row) => {
@@ -181,9 +203,16 @@ const calculateRowTotal = (row) => {
     row.total = 0
     return
   }
-  const rowTotal = price * quantity
-  if (rowTotal > 0) {
-    row.total = rowTotal
+  try {
+    const decimalPrice = new Decimal(price)
+    const decimalQuantity = new Decimal(quantity)
+    const rowTotal = decimalPrice.times(decimalQuantity)
+    if (rowTotal.greaterThan(0)) {
+      row.total = rowTotal.toNumber()
+    }
+  } catch (error) {
+    console.error('Error calculating total:', error)
+    row.total = 0
   }
 }
 
@@ -191,9 +220,10 @@ const addNewRow = () => {
   const lastRow = rows[rows.length - 1]
   rows.push({
     id: lastRow.id + 1,
-    price: 0,
+    displayedPrice: '',
+    price: '',
     cross: '',
-    quantity: 0,
+    quantity: '',
     equal: '',
     total: 0
   })
@@ -202,6 +232,7 @@ const addNewRow = () => {
 const clearAll = () => {
   rows.forEach((row) => {
     row.price = 0
+    row.displayedPrice = ''
     row.quantity = 0
     row.total = 0
   })

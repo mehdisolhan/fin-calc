@@ -1,7 +1,6 @@
 export const currencyList = [
-  { value: 'try', label: 'TRY', icon: '₺' },
-  { value: 'usd', label: 'USD', icon: '$' },
-  { value: 'eur', label: 'EUR', icon: '€' },
-  { value: 'gbp', label: 'GBP', icon: '£' },
-  { value: 'jpy', label: 'JPY', icon: '¥' }
+  { value: 'tr', label: 'TRY', icon: '₺' },
+  { value: 'en', label: 'USD', icon: '$' },
+  { value: 'de', label: 'EUR', icon: '€' },
+  { value: 'jp', label: 'JPY', icon: '¥' }
 ]

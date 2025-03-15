@@ -20,20 +20,25 @@ export default defineNuxtConfig({
       link: [{ rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }]
     }
   },
+
   devtools: { enabled: false },
   plugins: ['~/plugins/i18n/index.js'],
   modules: ['@pinia/nuxt', '@nuxtjs/tailwindcss', 'nuxt-icon', '@nuxtjs/sitemap', '@nuxtjs/robots'],
   css: ['@/assets/css/tailwind.css'],
+
   site: {
     url: 'https://fin-calcc.vercel.app/'
   },
+
   robots: {
-    rules: [
+    groups: [
       {
-        UserAgent: '*',
-        Disallow: ''
+        userAgent: '*',
+        disallow: ''
       }
     ],
     sitemap: 'https://fin-calcc.vercel.app/sitemap.xml'
-  }
+  },
+
+  compatibilityDate: '2025-03-15'
 })

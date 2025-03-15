@@ -2,7 +2,7 @@ import { defineStore } from 'pinia'
 
 export const useGlobalStore = defineStore('global', () => {
   const language = ref('tr')
-  const currency = ref({ value: 'try', label: 'TRY', icon: '₺' })
+  const currency = ref({ value: 'tr', label: 'TRY', icon: '₺' })
 
   const currencyIcon = computed(() => currency.value.icon)
 

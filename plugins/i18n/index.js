@@ -1,5 +1,6 @@
 import { createI18n } from 'vue-i18n'
 import { language } from './language'
+import { numberFormats } from './numbers'
 import { defineNuxtPlugin } from '#app'
 import { useGlobalStore } from '@/stores/global'
 
@@ -10,7 +11,8 @@ export default defineNuxtPlugin((nuxtApp) => {
     locale: store.language,
     fallbackLocale: 'tr',
     messages: language,
-    globalInjection: true
+    globalInjection: true,
+    numberFormats: numberFormats
   })
 
   nuxtApp.vueApp.use(i18n)
