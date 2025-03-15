@@ -2,7 +2,7 @@
   <input
     :value="row.displayedPrice"
     type="text"
-    class="w-full p-2 border border-gray-300 rounded-md text-black"
+    class="w-full p-2 max-sm:p-1 border border-gray-300 rounded-md text-black"
     placeholder="0.00"
     @input="(e) => handleInput(e, row)"
     @focus="() => handleFocus(row)"
