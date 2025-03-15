@@ -11,13 +11,13 @@
       <tbody>
         <tr v-for="(row, i) in rows" :key="row.id" class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
           <td class="px-6 py-4 max-sm:px-0 max-sm:py-1 min-w-[30px]">{{ row.id }}</td>
-          <td class="px-6 py-4 max-sm:px-0 max-sm:py-1 min-w-[150px]">
+          <td class="px-6 py-4 max-sm:px-0 max-sm:py-1 min-w-[60px]">
             <CurrencyInput v-model="rows[i]" @calculate-row-total="calculateRowTotal" />
           </td>
           <td class="px-6 py-4 max-sm:px-0 max-sm:py-1 text-center min-w-[30px]">
             <span>x</span>
           </td>
-          <td class="px-6 py-4 max-sm:px-0 max-sm:py-1 min-w-[150px]">
+          <td class="px-6 py-4 max-sm:px-0 max-sm:py-1 min-w-[60px]">
             <input
               :value="row.quantity"
               type="text"
@@ -30,17 +30,17 @@
             <span>=</span>
           </td>
           <td
-            class="px-6 py-4 max-sm:px-0 max-sm:py-1 font-bold text-black text-center text-base max-sm:text-sm dark:text-white min-w-[120px]"
+            class="px-6 py-4 max-sm:px-0 max-sm:py-1 font-bold text-black text-center text-base max-sm:text-sm dark:text-white min-w-[60px]"
           >
             <span>{{ $n(row.total, 'currency', store.currency.value) }}</span>
           </td>
           <td
             v-if="row.id > 4"
-            class="px-6 py-4 max-sm:px-0 max-sm:py-1 font-bold text-black text-center text-base max-sm:text-sm dark:text-white min-w-[100px]"
+            class="px-6 py-4 max-sm:px-0 max-sm:py-1 font-bold text-black text-center text-base max-sm:text-sm dark:text-white min-w-[50px]"
           >
             <button
               type="button"
-              class="flex items-center m-2 focus:outline-none text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:ring-red-300 font-medium rounded-lg text-sm max-sm:text-xs px-3 py-2 max-sm:px-1 max-sm:py-1 me-2 mb-2 dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-900"
+              class="flex items-center m-2 max-sm:m-0 focus:outline-none text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:ring-red-300 font-medium rounded-lg text-sm max-sm:text-xs px-3 py-2 max-sm:px-1 max-sm:py-1 me-2 mb-2 dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-900"
               @click="() => rows.splice(rows.indexOf(row), 1)"
             >
               <Icon name="heroicons:x-circle-16-solid" />
